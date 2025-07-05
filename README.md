@@ -1,5 +1,5 @@
 KAANI Parfüm Web Sitesi
-KAANI Parfüm, aroma bazlı parfüm filtreleme, kullanıcı kimlik doğrulama, alışveriş sepeti, dilek listesi, AI destekli chatbot ve daha fazlasını içeren modern bir parfüm e-ticaret platformudur.
+Aroma bazlı parfüm filtreleme, kullanıcı kimlik doğrulama, alışveriş sepeti, dilek listesi, AI destekli chatbot ve daha fazlasını içeren modern bir parfüm e-ticaret platformudur.
 
 Kurulum
 XAMPP'i yükleyin ve Apache ile MySQL servislerini başlatın
