@@ -1,0 +1,128 @@
+/* Perfume Card Styles - Tüm bölümler için ortak stil */
+
+/* Perfume Attributes (Gender & Season) */
+.perfume-attributes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.perfume-gender, .perfume-season {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.perfume-gender {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.perfume-season {
+    background-color: var(--accent-color);
+    color: var(--dark-color);
+}
+
+/* Card Styles for Popular and Seasonal Sections */
+.card.perfume-card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.card.perfume-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-container {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.card-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.wishlist-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #dc3545;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.wishlist-btn:hover {
+    transform: scale(1.2);
+}
+
+/* Notes Styles */
+.perfume-notes {
+    font-size: 13px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+    color: var(--dark-color);
+    text-align: left;
+}
+
+.perfume-notes strong {
+    color: var(--primary-color);
+}
+
+/* Price Container Styles */
+.price-container {
+    margin-top: 10px;
+}
+
+.price {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--dark-color);
+    display: block;
+    line-height: 1.5;
+}
+
+/* İncele Button */
+.incele-btn {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.incele-btn:hover {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--dark-color);
+    transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .perfume-attributes {
+        flex-direction: column;
+        gap: 3px;
+    }
+    
+    .perfume-gender, .perfume-season {
+        font-size: 11px;
+        padding: 3px 8px;
+    }
+    
+    .price {
+        font-size: 13px;
+    }
+}

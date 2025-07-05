@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAANI Perfume API Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            max-height: 300px;
+            overflow: auto;
+        }
+        .api-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .btn-test {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">KAANI Perfume API Test</h1>
+        
+        <div class="alert alert-info">
+            This page is used to test the APIs of the KAANI Perfume website. You can view the results by clicking on the test buttons for each API endpoint.
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="api-section">
+                    <h3>Perfume APIs</h3>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Perfumes</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Show perfumes with filtering and sorting</p>
+                            <div class="mb-3">
+                                <label class="form-label">Gender:</label>
+                                <select id="gender" class="form-select">
+                                    <option value="all">All</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="unisex">Unisex</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Season:</label>
+                                <select id="season" class="form-select">
+                                    <option value="all">All</option>
+                                    <option value="summer">Summer</option>
+                                    <option value="winter">Winter</option>
+                                    <option value="spring">Spring</option>
+                                    <option value="autumn">Autumn</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Sort:</label>
+                                <select id="sort" class="form-select">
+                                    <option value="name-asc">Name (A-Z)</option>
+                                    <option value="name-desc">Name (Z-A)</option>
+                                    <option value="price-asc">Lowest to Highest Price</option>
+                                    <option value="price-desc">Highest to Lowest Price</option>
+                                </select>
+                            </div>
+                            <button id="testGetPerfumes" class="btn btn-primary btn-test">Test</button>
+                            <pre id="getPerfumesResult" class="mt-3"></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Perfume Details</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Shows the details of a single perfume</p>
+                            <div class="mb-3">
+                                <label class="form-label">Perfume ID:</label>
+                                <input type="text" id="perfumeId" class="form-control" placeholder="Perfume ID">
+                            </div>
+                            <button id="testGetPerfume" class="btn btn-primary btn-test">Test</button>
+                            <pre id="getPerfumeResult" class="mt-3"></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Show similar perfumes</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Shows perfumes similar to a perfume</p>
+                            <div class="mb-3">
+                                <label class="form-label">Perfume ID:</label>
+                                <input type="text" id="similarPerfumeId" class="form-control" placeholder="Perfume ID">
+                            </div>
+                            <button id="testGetSimilarPerfumes" class="btn btn-primary btn-test">Test</button>
+                            <pre id="getSimilarPerfumesResult" class="mt-3"></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Show perfume notes</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Shows all perfume notes.</p>
+                            <button id="testGetAromas" class="btn btn-primary btn-test">Test</button>
+                            <pre id="getAromasResult" class="mt-3"></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Show Perfumes by Aroma Notes</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Shows perfumes based on selected aroma notes.</p>
+                            <div class="mb-3">
+                                <label class="form-label">Aroma Notes (separate with commas):</label>
+                                <input type="text" id="aromaNames" class="form-control" placeholder="exp: Cassis, patchouli, rose">
+                            </div>
+                            <button id="testGetPerfumesByAroma" class="btn btn-primary btn-test">Test</button>
+                            <pre id="getPerfumesByAromaResult" class="mt-3"></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Shows Popular Perfumes</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Shows popular perfumes.</p>
+                            <button id="testGetPopularPerfumes" class="btn btn-primary btn-test">Test</button>
+                            <pre id="getPopularPerfumesResult" class="mt-3"></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Shows Seasonal Perfumes</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Shows perfumes for a specific season.</p>
+                            <div class="mb-3">
+                                <label class="form-label">Season:</label>
+                                <select id="seasonalSeason" class="form-select">
+                                    <option value="summer">Summer</option>
+                                    <option value="winter">Winter</option>
+                                    <option value="spring">Spring</option>
+                                    <option value="autumn">Autumn</option>
+                                </select>
+                            </div>
+                            <button id="testGetSeasonalPerfumes" class="btn btn-primary btn-test">Test</button>
+                            <pre id="getSeasonalPerfumesResult" class="mt-3"></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="api-section">
+                    <h3>Comment APIs</h3>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Shows reviews</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>It shows reviews for a perfume.</p>
+                            <div class="mb-3">
+                                <label class="form-label">Perfume ID:</label>
+                                <input type="text" id="reviewPerfumeId" class="form-control" placeholder="Perfume ID">
+                            </div>
+                            <button id="testGetReviews" class="btn btn-primary btn-test">Test</button>
+                            <pre id="getReviewsResult" class="mt-3"></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Add Comment</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Adds a new review for a perfume.</p>
+                            <div class="mb-3">
+                                <label class="form-label">Perfume ID:</label>
+                                <input type="text" id="addReviewPerfumeId" class="form-control" placeholder="Perfume ID">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Name:</label>
+                                <input type="text" id="reviewName" class="form-control" placeholder="Name Surname">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Rating:</label>
+                                <select id="reviewRating" class="form-select">
+                                    <option value="5">5 Rating</option>
+                                    <option value="4">4 Rating</option>
+                                    <option value="3">3 Rating</option>
+                                    <option value="2">2 Rating</option>
+                                    <option value="1">1 Rating</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Comment:</label>
+                                <textarea id="reviewComment" class="form-control" rows="3" placeholder="Your comment"></textarea>
+                            </div>
+                            <button id="testAddReview" class="btn btn-primary btn-test">Test</button>
+                            <pre id="addReviewResult" class="mt-3"></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <h3>Chatbot APIs</h3>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Get Perfume Advice</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Receives perfume advice based on user messages.</p>
+                            <div class="mb-3">
+                                <label class="form-label">Message:</label>
+                                <textarea id="chatbotMessage" class="form-control" rows="3" placeholder="Your message"></textarea>
+                            </div>
+                            <button id="testGetRecommendation" class="btn btn-primary btn-test">Test</button>
+                            <pre id="getRecommendationResult" class="mt-3"></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <h3>User APIs</h3>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>User Registration</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Creates a new user account.</p>
+                            <div class="mb-3">
+                                <label class="form-label">Name Surname:</label>
+                                <input type="text" id="registerName" class="form-control" placeholder="Your name surname">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email:</label>
+                                <input type="email" id="registerEmail" class="form-control" placeholder="Your email address">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password:</label>
+                                <input type="password" id="registerPassword" class="form-control" placeholder="Your password">
+                            </div>
+                            <button id="testRegister" class="btn btn-primary btn-test">Test</button>
+                            <pre id="registerResult" class="mt-3"></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>User Login</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>User login system.</p>
+                            <div class="mb-3">
+                                <label class="form-label">Email:</label>
+                                <input type="email" id="loginEmail" class="form-control" placeholder="Your email address">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password:</label>
+                                <input type="password" id="loginPassword" class="form-control" placeholder="Your password">
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" id="rememberMe" class="form-check-input">
+                                <label class="form-check-label" for="rememberMe">Remember Me</label>
+                            </div>
+                            <button id="testLogin" class="btn btn-primary btn-test">Test</button>
+                            <pre id="loginResult" class="mt-3"></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Check Login Status</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Checks the users login status.</p>
+                            <button id="testCheckLogin" class="btn btn-primary btn-test">Test</button>
+                            <pre id="checkLoginResult" class="mt-3"></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Log out</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>User log out system.</p>
+                            <button id="testLogout" class="btn btn-primary btn-test">Test</button>
+                            <pre id="logoutResult" class="mt-3"></pre>
+                        </div>
+                    </div>
+                    
+            
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Reset Password</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                Resets the password.
+                            </p>
+                            <div class="mb-3">
+                                <label class="form-label">Token:</label>
+                                <input type="text" id="resetToken" class="form-control" placeholder="Reset tokens">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">New Password:</label>
+                                <input type="password" id="resetPassword" class="form-control" placeholder="Your new password">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password Repeat:</label>
+                                <input type="password" id="resetPasswordConfirm" class="form-control" placeholder="Please re-enter your new password">
+                            </div>
+                            <button id="testResetPassword" class="btn btn-primary btn-test">Test</button>
+                            <pre id="resetPasswordResult" class="mt-3"></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Helper function to format JSON
+            function formatJSON(json) {
+                return JSON.stringify(json, null, 2);
+            }
+            
+            // Helper function to show API result
+            function showResult(elementId, data) {
+                document.getElementById(elementId).textContent = formatJSON(data);
+            }
+            
+            // Helper function for GET requests
+            async function fetchGet(url) {
+                try {
+                    const response = await fetch(url);
+                    return await response.json();
+                } catch (error) {
+                    return { error: error.message };
+                }
+            }
+            
+            // Helper function for POST requests
+            async function fetchPost(url, data) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    return await response.json();
+                } catch (error) {
+                    return { error: error.message };
+                }
+            }
+            
+            // Test Get Perfumes
+            document.getElementById('testGetPerfumes').addEventListener('click', async function() {
+                const gender = document.getElementById('gender').value;
+                const season = document.getElementById('season').value;
+                const sort = document.getElementById('sort').value;
+                
+                const url = `api/get_perfumes.php?gender=${gender}&season=${season}&sort=${sort}&page=1&per_page=5`;
+                const result = await fetchGet(url);
+                showResult('getPerfumesResult', result);
+                
+                // If successful, set the first perfume ID for other tests
+                if (result.success && result.perfumes.length > 0) {
+                    const perfumeId = result.perfumes[0].id;
+                    document.getElementById('perfumeId').value = perfumeId;
+                    document.getElementById('similarPerfumeId').value = perfumeId;
+                    document.getElementById('reviewPerfumeId').value = perfumeId;
+                    document.getElementById('addReviewPerfumeId').value = perfumeId;
+                }
+            });
+            
+            // Test Get Perfume
+            document.getElementById('testGetPerfume').addEventListener('click', async function() {
+                const perfumeId = document.getElementById('perfumeId').value;
+                
+                if (!perfumeId) {
+                    showResult('getPerfumeResult', { error: 'Parfüm ID gerekli' });
+                    return;
+                }
+                
+                const url = `api/get_perfume.php?id=${perfumeId}`;
+                const result = await fetchGet(url);
+                showResult('getPerfumeResult', result);
+            });
+            
+            // Test Get Similar Perfumes
+            document.getElementById('testGetSimilarPerfumes').addEventListener('click', async function() {
+                const perfumeId = document.getElementById('similarPerfumeId').value;
+                
+                if (!perfumeId) {
+                    showResult('getSimilarPerfumesResult', { error: 'Parfüm ID gerekli' });
+                    return;
+                }
+                
+                const url = `api/get_similar_perfumes.php?id=${perfumeId}&limit=3`;
+                const result = await fetchGet(url);
+                showResult('getSimilarPerfumesResult', result);
+            });
+            
+            // Test Get Aromas
+            document.getElementById('testGetAromas').addEventListener('click', async function() {
+                const url = 'api/get_aromas.php';
+                const result = await fetchGet(url);
+                showResult('getAromasResult', result);
+                
+                // If successful, set some aroma names for other tests
+                if (result.success && result.aromas.length > 0) {
+                    const aromaNames = result.aromas.slice(0, 2).map(aroma => aroma.name).join(', ');
+                    document.getElementById('aromaNames').value = aromaNames;
+                }
+            });
+            
+            // Test Get Perfumes By Aroma
+            document.getElementById('testGetPerfumesByAroma').addEventListener('click', async function() {
+                const aromaNames = document.getElementById('aromaNames').value;
+                
+                if (!aromaNames) {
+                    showResult('getPerfumesByAromaResult', { error: 'Aroma notaları gerekli' });
+                    return;
+                }
+                
+                const aromas = aromaNames.split(',').map(name => name.trim());
+                const data = {
+                    aromas: aromas,
+                    page: 1,
+                    per_page: 5
+                };
+                
+                const url = 'api/get_perfumes_by_aroma.php';
+                const result = await fetchPost(url, data);
+                showResult('getPerfumesByAromaResult', result);
+            });
+            
+            // Test Get Popular Perfumes
+            document.getElementById('testGetPopularPerfumes').addEventListener('click', async function() {
+                const url = 'api/get_popular_perfumes.php?limit=5';
+                const result = await fetchGet(url);
+                showResult('getPopularPerfumesResult', result);
+            });
+            
+            // Test Get Seasonal Perfumes
+            document.getElementById('testGetSeasonalPerfumes').addEventListener('click', async function() {
+                const season = document.getElementById('seasonalSeason').value;
+                
+                const url = `api/get_seasonal_perfumes.php?season=${season}&limit=4`;
+                const result = await fetchGet(url);
+                showResult('getSeasonalPerfumesResult', result);
+            });
+            
+            // Test Get Reviews
+            document.getElementById('testGetReviews').addEventListener('click', async function() {
+                const perfumeId = document.getElementById('reviewPerfumeId').value;
+                
+                if (!perfumeId) {
+                    showResult('getReviewsResult', { error: 'Parfüm ID gerekli' });
+                    return;
+                }
+                
+                const url = `api/get_reviews.php?perfume_id=${perfumeId}&page=1&per_page=5`;
+                const result = await fetchGet(url);
+                showResult('getReviewsResult', result);
+            });
+            
+            // Test Add Review
+            document.getElementById('testAddReview').addEventListener('click', async function() {
+                const perfumeId = document.getElementById('addReviewPerfumeId').value;
+                const name = document.getElementById('reviewName').value;
+                const rating = document.getElementById('reviewRating').value;
+                const comment = document.getElementById('reviewComment').value;
+                
+                if (!perfumeId) {
+                    showResult('addReviewResult', { error: 'Parfüm ID gerekli' });
+                    return;
+                }
+                
+                if (!name) {
+                    showResult('addReviewResult', { error: 'İsim gerekli' });
+                    return;
+                }
+                
+                if (!comment) {
+                    showResult('addReviewResult', { error: 'Yorum gerekli' });
+                    return;
+                }
+                
+                const data = {
+                    perfume_id: perfumeId,
+                    name: name,
+                    rating: parseInt(rating),
+                    comment: comment
+                };
+                
+                const url = 'api/add_review.php';
+                const result = await fetchPost(url, data);
+                showResult('addReviewResult', result);
+            });
+            
+            // Test Get Recommendation
+            document.getElementById('testGetRecommendation').addEventListener('click', async function() {
+                const message = document.getElementById('chatbotMessage').value;
+                
+                if (!message) {
+                    showResult('getRecommendationResult', { error: 'Mesaj gerekli' });
+                    return;
+                }
+                
+                const data = {
+                    message: message,
+                    history: []
+                };
+                
+                const url = 'api/get_recommendation.php';
+                const result = await fetchPost(url, data);
+                showResult('getRecommendationResult', result);
+            });
+            
+            // Test Register
+            document.getElementById('testRegister').addEventListener('click', async function() {
+                const name = document.getElementById('registerName').value;
+                const email = document.getElementById('registerEmail').value;
+                const password = document.getElementById('registerPassword').value;
+                
+                if (!name || !email || !password) {
+                    showResult('registerResult', { error: 'Tüm alanlar gerekli' });
+                    return;
+                }
+                
+                const data = {
+                    name: name,
+                    email: email,
+                    password: password
+                };
+                
+                const url = 'api/register.php';
+                const result = await fetchPost(url, data);
+                showResult('registerResult', result);
+                
+                // If successful, set email and password for login test
+                if (result.success) {
+                    document.getElementById('loginEmail').value = email;
+                    document.getElementById('loginPassword').value = password;
+                }
+            });
+            
+            // Test Login
+            document.getElementById('testLogin').addEventListener('click', async function() {
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                const rememberMe = document.getElementById('rememberMe').checked;
+                
+                if (!email || !password) {
+                    showResult('loginResult', { error: 'E-posta ve şifre gerekli' });
+                    return;
+                }
+                
+                const data = {
+                    email: email,
+                    password: password,
+                    remember_me: rememberMe
+                };
+                
+                const url = 'api/login.php';
+                const result = await fetchPost(url, data);
+                showResult('loginResult', result);
+            });
+            
+            // Test Check Login
+            document.getElementById('testCheckLogin').addEventListener('click', async function() {
+                const url = 'api/check_login.php';
+                const result = await fetchGet(url);
+                showResult('checkLoginResult', result);
+            });
+            
+            // Test Logout
+            document.getElementById('testLogout').addEventListener('click', async function() {
+                const url = 'api/logout.php';
+                const result = await fetchPost(url, {});
+                showResult('logoutResult', result);
+            });
+            
+            // Test Forgot Password
+            document.getElementById('testForgotPassword').addEventListener('click', async function() {
+                const email = document.getElementById('forgotEmail').value;
+                
+                if (!email) {
+                    showResult('forgotPasswordResult', { error: 'E-posta gerekli' });
+                    return;
+                }
+                
+                const data = {
+                    email: email
+                };
+                
+                const url = 'api/forgot_password.php';
+                const result = await fetchPost(url, data);
+                showResult('forgotPasswordResult', result);
+                
+                // If successful and token is returned (for development), set it for reset password test
+                if (result.success && result.dev_reset_link) {
+                    const token = result.dev_reset_link.split('=')[1];
+                    document.getElementById('resetToken').value = token;
+                }
+            });
+            
+            // Test Reset Password
+            document.getElementById('testResetPassword').addEventListener('click', async function() {
+                const token = document.getElementById('resetToken').value;
+                const password = document.getElementById('resetPassword').value;
+                const confirmPassword = document.getElementById('resetPasswordConfirm').value;
+                
+                if (!token || !password || !confirmPassword) {
+                    showResult('resetPasswordResult', { error: 'Tüm alanlar gerekli' });
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    showResult('resetPasswordResult', { error: 'Şifreler eşleşmiyor' });
+                    return;
+                }
+                
+                const data = {
+                    token: token,
+                    password: password,
+                    confirm_password: confirmPassword
+                };
+                
+                const url = 'api/reset_password.php';
+                const result = await fetchPost(url, data);
+                showResult('resetPasswordResult', result);
+            });
+        });
+    </script>
+</body>
+</html>

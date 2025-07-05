@@ -1,0 +1,70 @@
+/**
+ * KAANI Perfume - Counter Styles
+ * Sepet ve İstek Listesi sayacı stilleri
+ */
+
+.count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    background-color: #dc3545;
+    border-radius: 10px;
+    position: relative;
+    top: -8px;
+    right: -3px;
+}
+
+/* İstek listesi ikonu için stiller */
+#wishlist-link-icon {
+    position: relative;
+}
+
+#wishlist-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(25%, -25%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    background-color: #dc3545; /* Kırmızı renk */
+    border-radius: 10px;
+}
+
+/* Sepet ikonu için stiller */
+#cart-link {
+    position: relative;
+}
+
+#cart-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(25%, -25%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    background-color: #dc3545; /* Kırmızı renk */
+    border-radius: 10px;
+}

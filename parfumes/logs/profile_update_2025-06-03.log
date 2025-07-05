@@ -1,0 +1,22 @@
+[2025-06-03 07:11:07] Update profile API called
+[2025-06-03 07:11:07] Raw input: {"name":"Kemal","email":"kemal@gmail.com","current_password":"keasdsad","new_password":""}
+[2025-06-03 07:11:07] Decoded data: Array
+(
+    [name] => Kemal
+    [email] => kemal@gmail.com
+    [current_password] => keasdsad
+    [new_password] => 
+)
+
+[2025-06-03 07:11:07] Attempting to connect to database
+[2025-06-03 07:11:20] Update profile API called
+[2025-06-03 07:11:20] Raw input: {"name":"Kemal","email":"kemal@gmail.com","current_password":"kemal123","new_password":"kemal1234"}
+[2025-06-03 07:11:20] Decoded data: Array
+(
+    [name] => Kemal
+    [email] => kemal@gmail.com
+    [current_password] => kemal123
+    [new_password] => kemal1234
+)
+
+[2025-06-03 07:11:20] Attempting to connect to database
